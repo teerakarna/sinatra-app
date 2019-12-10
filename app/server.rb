@@ -3,7 +3,7 @@ require 'bundler' ; Bundler.require
 
 set :bind, '0.0.0.0'
 
-# By default Sinatra will return the string as the response.
-get '/hello-world' do
+# By default Sinatra will return this string as the response.
+get '/' do
   "Hello World!"
 end
