@@ -26,6 +26,6 @@ $ minikube addons enable ingress
 Download the Bash script [run-demo.sh](run-demo.sh) and run in terminal:
 
 ```
-$ curl https://raw.githubusercontent.com/teerakarna/sinatra-demo/master/run-demo.sh
+$ curl https://raw.githubusercontent.com/teerakarna/sinatra-demo/master/run-demo.sh -o run-demo.sh
 $ bash run-demo.sh
 ```
