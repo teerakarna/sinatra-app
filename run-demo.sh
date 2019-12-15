@@ -48,5 +48,5 @@ kubectl apply -f manifests/ingress.yaml && \
 # Output message to user for final manual configuration step
 echo -e "\nAdd this to the end of your /etc/hosts file:\n\n\t$(kubectl get ingress sinatra-demo \
 	-ojsonpath='{.status.loadBalancer.ingress[].ip}') $(kubectl get ingress sinatra-demo \
-    -ojsonpath='{.spec.rules[].host}')\n\nAccess site via this URL:\n\n\thttp://$(kubectl get ingress sinatra-demo \
-    -ojsonpath='{.spec.rules[].host}')\n"
+	-ojsonpath='{.spec.rules[].host}')\n\nAccess site via this URL:\n\n\thttp://$(kubectl get ingress sinatra-demo \
+	-ojsonpath='{.spec.rules[].host}')\n"
