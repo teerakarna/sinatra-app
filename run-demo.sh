@@ -43,7 +43,11 @@ kubectl scale deployment sinatra-demo --replicas=2 && \
 
 # Create NodePort service and apply ingress resource
 kubectl expose deployment sinatra-demo --type=NodePort --port=4567 && \
-kubectl apply -f manifests/ingress.yaml && \
+kubectl apply -f /tmp/sinatra-demo/manifests/ingress.yaml && \
+
+# Pause for 30 seconds for ingress to be configured
+echo "Waiting for 30 seconds for resource to become available..."
+sleep 30
 
 # Output message to user for final manual configuration step
 echo -e "\nAdd this to the end of your /etc/hosts file:\n\n\t$(kubectl get ingress sinatra-demo \
