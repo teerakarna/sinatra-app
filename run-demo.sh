@@ -5,15 +5,15 @@ dep=( git docker minikube kubectl )
 
 for i in "${dep[@]}"; do
 	if ! command -v "$i" >/dev/null 2>&1; then
-    	echo -e "Error: Can not find \"$i\" in environment variable $PATH"
-    	exit 1
+		echo -e "Error: Can not find \"$i\" in environment variable $PATH"
+		exit 1
 	fi
 done
 
 # Check minikube is correctly configured, if not, show output and exit
 if ! minikube status >/dev/null 2>&1; then
 	minikube status
-	exit 1
+	exit "$?"
 fi
 
 # Make sure the ingress controller is enabled
@@ -36,7 +36,9 @@ kubectl create deployment sinatra-demo --image=sinatra-demo && \
 kubectl patch deployment sinatra-demo -p '{"spec":{"template":{"spec":{"containers":[{"name":"sinatra-demo","imagePullPolicy":"Never"}]}}}}' && \
 
 # Restart pods to pick up local image
-for i in $(kubectl get po -l=app=sinatra-demo --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'); do kubectl delete po $i; done && \
+for i in $(kubectl get po -l=app=sinatra-demo --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'); do
+	kubectl delete po $i
+done && \
 
 # Scale to 2 replicas for HA config
 kubectl scale deployment sinatra-demo --replicas=2 && \
